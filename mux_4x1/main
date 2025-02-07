@@ -1,0 +1,28 @@
+module MUX4to1(out,in,sel);
+input[0:3] in;
+input[0:1] sel;
+output out;
+
+wire a0,a1,a2,a3,inv0,inv1;
+
+not g(inv1,sel[1]);
+not g0(inv0,sel[0]);
+and g1(a0,in[0],inv0,inv1);
+and g2(a1,in[1],inv0,sel[1]);
+and g3(a2,in[2],sel[0],inv1);
+and g4(a3,in[3],sel[0],sel[1]);
+or or1(out,a0,a1,a2,a3);
+
+endmodule
+
+module MUX(out,in,sel);
+input[0:15] in;
+input[0:3] sel;
+output out;
+wire[0:3] t;
+MUX4to1 mux1(t[0],in[0:3],sel[2:3]);
+MUX4to1 mux2(t[1],in[4:7],sel[2:3]);
+MUX4to1 mux3(t[2],in[8:11],sel[2:3]);
+MUX4to1 mux4(t[3],in[12:15],sel[2:3]);
+MUX4to1 mux5(out,t,sel[0:1]);
+endmodule
