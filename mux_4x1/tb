@@ -1,0 +1,16 @@
+module MUX_tb;
+
+reg[0:15] in;
+reg[0:3] sel;
+wire out;
+MUX mux(out,in,sel);
+initial
+begin
+in=16'd0;sel=4'd0;
+#5 in=16'd3;sel=4'd0;
+#5 in=16'd3;sel=4'd1;
+#5 in=16'd128;sel=4'd8;
+#5 in=16'd128;sel=4'd7;
+#5 $finish;
+end
+endmodule
